@@ -1,0 +1,33 @@
+<com.example.homeworkcorrectteacher.RoundRectLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:background="@drawable/background_circle_submit"
+    android:orientation="vertical">
+    <ImageView android:id="@+id/img_homework"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:scaleType="centerCrop"
+        android:layout_height="150dp" />
+    <LinearLayout
+        android:layout_below="@id/img_homework"
+        android:layout_marginLeft="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_homework_type"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="数学"
+            android:textColor="#000000"/>
+        <TextView
+            android:id="@+id/tv_submit_time"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textColor="#000000"/>
+        <TextView android:id="@+id/tv_state"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp" />
+    </LinearLayout>
+</com.example.homeworkcorrectteacher.RoundRectLayout>

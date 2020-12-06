@@ -55,18 +55,15 @@ public class HomeworkAdapter extends BaseAdapter {
             convertView = mInflater.inflate(id, null);
             viewHolder = new ViewHolder();
             viewHolder.imgHomework = convertView.findViewById(R.id.img_homework);
-            viewHolder.tvHomeworkType = convertView.findViewById(R.id.tv_homework_type);
             viewHolder.tvSubmitTime = convertView.findViewById(R.id.tv_submit_time);
-            viewHolder.tvState = convertView.findViewById(R.id.tv_state);
             convertView.setTag(viewHolder);
         }else {
             viewHolder =(ViewHolder) convertView.getTag();
         }
         //Log.e("12312",dataSource.get(position).getHomework_image().toString());
         Glide.with(context).load(IP.CONSTANT+"images/"+dataSource.get(position).getHomework_image().get(0)).into(viewHolder.imgHomework);
-        viewHolder.tvHomeworkType.setText(dataSource.get(position).getHomeworkType());
         viewHolder.tvSubmitTime.setText(dataSource.get(position).getSubmitTime());
-        viewHolder.tvState.setText(dataSource.get(position).getTag());
+
         return convertView;
     }
     private class ViewHolder{

@@ -72,10 +72,6 @@ public class RewardFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_reward, container, false);
-        background = view.findViewById(R.id.background);
-        RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), BitmapFactory.decodeResource(getResources(),R.drawable.background));
-        circularBitmapDrawable.setCornerRadius(200);
-        background.setImageDrawable(circularBitmapDrawable);
         viewPager = view.findViewById(R.id.viewpager);
         okHttpClient = new OkHttpClient();
 
@@ -123,10 +119,11 @@ public class RewardFragment extends Fragment implements View.OnClickListener {
         //设置viewPager的初始界面为第一个界面
         viewPager.setCurrentItem(0);
         gvHomework = math.findViewById(R.id.math_grid);
-        gvHomework.setHorizontalSpacing(10);
-        gvHomework.setVerticalSpacing(10);
+        gvHomework.setHorizontalSpacing(25);
+        gvHomework.setVerticalSpacing(25);
         getHomeworkOfSpecificSubject("math");
         //添加切换界面的监听器
+
         viewPager.addOnPageChangeListener(new MyOnPageChangeListener());
         // 获取滚动条的宽度
         //bmpW = BitmapFactory.decodeResource(getResources(), R.drawable.scrollbar).getWidth();
@@ -164,6 +161,10 @@ public class RewardFragment extends Fragment implements View.OnClickListener {
                     break;
                 case 1:
                     animation = new TranslateAnimation(offset, one, 0, 0);
+                    gvHomework = english.findViewById(R.id.english_grid);
+                    gvHomework.setHorizontalSpacing(20);
+                    gvHomework.setVerticalSpacing(20);
+                    getHomeworkOfSpecificSubject("english");
                     break;
             }
             //arg0为切换到的页的编码
@@ -192,12 +193,16 @@ public class RewardFragment extends Fragment implements View.OnClickListener {
                 //点击"视频“时切换到第一页
                 viewPager.setCurrentItem(0);
                 gvHomework = math.findViewById(R.id.math_grid);
+                gvHomework.setHorizontalSpacing(15);
+                gvHomework.setVerticalSpacing(15);
                 getHomeworkOfSpecificSubject("math");
                 break;
             case R.id.english:
                 //点击“音乐”时切换的第二页
                 viewPager.setCurrentItem(1);
                 gvHomework = english.findViewById(R.id.english_grid);
+                gvHomework.setHorizontalSpacing(15);
+                gvHomework.setVerticalSpacing(15);
                 getHomeworkOfSpecificSubject("english");
                 break;
         }

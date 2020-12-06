@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class DetailHomeworkOrder extends AppCompatActivity {
+public class MyWallet extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_homework_order);
+        setContentView(R.layout.activity_my_wallet);
     }
 }

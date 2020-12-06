@@ -37,10 +37,10 @@ public class RoundRectLayout extends RelativeLayout {
     }
 
     private void init(){
-        setBackgroundDrawable(new ColorDrawable(0x33ff0000));
+        //setBackgroundDrawable(new ColorDrawable(0x00fff0f5));
         mPath = new Path();
         mPath.setFillType(Path.FillType.EVEN_ODD);
-        setCornerRadius(40);
+        setCornerRadius(15);
     }
 
     /**

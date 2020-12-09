@@ -98,7 +98,7 @@ public class ShowImagesDialog extends Dialog {
             anim.setInterpolator(new LinearInterpolator());
             anim.setRepeatCount(ObjectAnimator.INFINITE);
             anim.start();
-            Log.e("m",mImgUrls.get(i));
+
             Glide.with(mContext)
                     .load(IP.CONSTANT+"images/"+mImgUrls.get(i))
                     .placeholder(R.drawable.rotate_loading)

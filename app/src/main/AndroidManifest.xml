@@ -12,8 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".HomeworkCorrectActivity"></activity>
-        <activity android:name=".MyWallet"></activity>
+        <activity android:name=".LastCorrectActivity"></activity>
+        <activity android:name=".HomeworkCorrectActivity" />
+        <activity android:name=".MyWallet" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LastCorrectActivity"></activity>
+        <activity android:name=".LastCorrectActivity">
+
+        </activity>
         <activity android:name=".HomeworkCorrectActivity" />
         <activity android:name=".MyWallet" />
         <activity android:name=".MainActivity">

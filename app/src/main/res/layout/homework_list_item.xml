@@ -13,6 +13,7 @@
             android:scaleType="centerCrop"
             android:layout_height="150dp" />
         <TextView
+            android:id="@+id/transparentPrompt"
             android:layout_width="wrap_content"
             android:gravity="center"
             android:layout_height="20dp"
@@ -20,7 +21,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="10dp"
-                android:layout_marginBottom="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/deadline_background"
             android:textColor="#f0f0f0"
             android:textSize="8sp"
@@ -68,6 +69,7 @@
                 android:textColor="#000000"/>
         </LinearLayout>
         <Button
+            android:id="@+id/checkdetail"
             android:layout_gravity="center"
             android:layout_width="100dp"
             android:layout_height="30dp"

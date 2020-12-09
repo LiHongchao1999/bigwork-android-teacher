@@ -1,8 +1,9 @@
 package com.example.homeworkcorrectteacher.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Homework {
+public class Homework implements Serializable {
     private int id;//作业id
     private String submitTime;//作业发布时间
     private String deadline;//作业截止时间

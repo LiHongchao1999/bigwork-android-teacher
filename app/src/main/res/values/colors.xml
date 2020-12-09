@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#4fc1e9</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="lightgray">#E2E2E2</color>
-
+    <color name="myback">#F0F8FF</color>
 
     <color name="backgroundOfMyInformation">#B0C4DE</color>
     <color name="toolBar">#F4606C</color>

@@ -8,8 +8,7 @@
         android:orientation="vertical">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tool"
-            android:background="@color/backgroundOfMyInformation"
-            app:titleTextColor="@android:color/white"
+            android:background="#F0F8FF"
             android:padding="5dp"
             android:layout_height="wrap_content"
             android:layout_width="match_parent">

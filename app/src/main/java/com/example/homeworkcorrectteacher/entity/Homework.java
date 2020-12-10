@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Homework implements Serializable {
     private int id;//作业id
+    private int user_id;//user_id
     private String submitTime;//作业发布时间
     private String deadline;//作业截止时间
     private String homeworkType;//作业类型
@@ -12,8 +13,11 @@ public class Homework implements Serializable {
     private List<String> homework_image;//作业图片
     private int teacher_id;//教师id
     private List<String> result_image;//结果图片
+    private List<String> result_image_teacher;//老师结果图片
     private String result_text;//结果文字
     private double money;//佣金
+    private int grade;//作业评分
+    private String scored;//判断是否评分
 
     public int getId() {
         return id;
@@ -21,6 +25,14 @@ public class Homework implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getSubmitTime() {
@@ -79,6 +91,14 @@ public class Homework implements Serializable {
         this.result_image = result_image;
     }
 
+    public List<String> getResult_image_teacher() {
+        return result_image_teacher;
+    }
+
+    public void setResult_image_teacher(List<String> result_image_teacher) {
+        this.result_image_teacher = result_image_teacher;
+    }
+
     public String getResult_text() {
         return result_text;
     }
@@ -95,6 +115,22 @@ public class Homework implements Serializable {
         this.money = money;
     }
 
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+
+    public String getScored() {
+        return scored;
+    }
+
+    public void setScored(String scored) {
+        this.scored = scored;
+    }
+
     public Homework() {
 
     }
@@ -106,5 +142,25 @@ public class Homework implements Serializable {
         this.homework_image = homework_image;
         this.result_image = result_image;
         this.money = money;
+    }
+
+    @Override
+    public String toString() {
+        return "Homework{" +
+                "id=" + id +
+                ", user_id=" + user_id +
+                ", submitTime='" + submitTime + '\'' +
+                ", deadline='" + deadline + '\'' +
+                ", homeworkType='" + homeworkType + '\'' +
+                ", tag='" + tag + '\'' +
+                ", homework_image=" + homework_image +
+                ", teacher_id=" + teacher_id +
+                ", result_image=" + result_image +
+                ", result_image_teacher=" + result_image_teacher +
+                ", result_text='" + result_text + '\'' +
+                ", money=" + money +
+                ", grade=" + grade +
+                ", scored='" + scored + '\'' +
+                '}';
     }
 }

@@ -1,2 +1,3 @@
+include ':imageeditlibrary'
 include ':app'
 rootProject.name = "HomeworkCorrectTeacher"

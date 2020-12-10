@@ -20,12 +20,13 @@ import org.w3c.dom.Text;
 
 public class HomeworkCorrectActivity extends AppCompatActivity {
     private Button checkBtn;
+    private Homework homework;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homework_correct);
         final Intent intent = getIntent();
-        final Homework homework  = (Homework) intent.getSerializableExtra("homework");
+        homework  = (Homework) intent.getSerializableExtra("homework");
         checkBtn = findViewById(R.id.checkdetail);
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,11 +37,12 @@ public class HomeworkCorrectActivity extends AppCompatActivity {
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        Toast.makeText(HomeworkCorrectActivity.this,"您已接单",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(HomeworkCorrectActivity.this,LastCorrectActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        finish();
+//                        Toast.makeText(HomeworkCorrectActivity.this,"您已接单",Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent(HomeworkCorrectActivity.this,LastCorrectActivity.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                        startActivity(intent);
+//                        finish();
+                        WhetherStartMarking();
                     }
                 });
 
@@ -73,6 +75,37 @@ public class HomeworkCorrectActivity extends AppCompatActivity {
                 new ShowImagesDialog(HomeworkCorrectActivity.this,homework.getHomework_image(),i).show();
             }
         });
+
+    }
+
+
+    public void WhetherStartMarking(){
+        CustomDialog.Builder builder = new CustomDialog.Builder(HomeworkCorrectActivity.this);
+        builder.setMessage("是否立即进行批改");
+        builder.setTitle("提示");
+        builder.setPositiveButton("是", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent intent = new Intent(HomeworkCorrectActivity.this,CorrectHomeworkActivity.class);
+                intent.putExtra("homework",homework);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("否",
+                new android.content.DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(HomeworkCorrectActivity.this,"您已取消",Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
+
+        builder.create().show();
+
+
+
 
     }
 

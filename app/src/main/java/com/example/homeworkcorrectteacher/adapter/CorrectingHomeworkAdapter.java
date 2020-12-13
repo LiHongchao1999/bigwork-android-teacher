@@ -47,7 +47,7 @@ public class CorrectingHomeworkAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if(convertView==null){
             LayoutInflater inflater = LayoutInflater.from(mContext);
@@ -66,6 +66,7 @@ public class CorrectingHomeworkAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, CorrectingHomeworkDetailActivity.class);
+                intent.putExtra("correctingHomework",homeworks.get(position));
                 mContext.startActivity(intent);
             }
         });

@@ -11,16 +11,21 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.homeworkcorrectteacher.adapter.CustomImgListAdapter;
+import com.example.homeworkcorrectteacher.adapter.ImageAdapter;
+import com.example.homeworkcorrectteacher.entity.Homework;
 import com.wildma.pictureselector.PictureBean;
 import com.wildma.pictureselector.PictureSelector;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
     private ScrollableGridView gridView1;//自己上传的
@@ -31,10 +36,24 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
     private EditText editText;//学生注释
     private OkHttpClient okHttpClient;
     private Button submitBtn;
+    private List<String> ordinaryImages;
+    private List<String> correctedImages;
+    private ListView beforeCorrectedListView;
+    private ListView afterCorrectedListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_correcting_homework_detail);
+        Intent intent = getIntent();
+        Homework homework = (Homework)intent.getSerializableExtra("correctingHomework");
+        ordinaryImages = homework.getHomework_image();
+        ImageAdapter imageAdapter = new ImageAdapter(this,ordinaryImages,R.layout.show_image_item_layout);
+        beforeCorrectedListView = findViewById(R.id.before);
+        beforeCorrectedListView.setAdapter(imageAdapter);
+        correctedImages = homework.getResult_image();
+        ImageAdapter imageAdapter1 = new ImageAdapter(this,correctedImages,R.layout.show_image_item_layout);
+        afterCorrectedListView = findViewById(R.id.after);
+        afterCorrectedListView.setAdapter(imageAdapter1);
         backBtn = findViewById(R.id.back);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,4 +134,5 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
             }
         }
     }
+
 }

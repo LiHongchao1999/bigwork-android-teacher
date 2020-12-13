@@ -79,7 +79,8 @@ public class CorrectHomeworkActivity extends AppCompatActivity {
 
     public void detailImage() {
         if (image_current > image_size) {
-            Toast.makeText(this, getString(R.string.save_path, newFilePath), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "作业批改完成",
+                    Toast.LENGTH_SHORT).show();
             return;
         } else {
             url = IP.CONSTANT + "images/" + homework_image.get(image_current - 1);
@@ -189,13 +190,14 @@ public class CorrectHomeworkActivity extends AppCompatActivity {
         if (isImageEdit) {
             //Toast.makeText(this, getString(R.string.save_path, newFilePath), Toast.LENGTH_LONG).show();
             Log.e("保存的路径newFilePath", newFilePath);
+            image_current ++;
+            detailImage();
         } else {//未编辑  还是用原来的图片
             newFilePath = data.getStringExtra(EditImageActivity.FILE_PATH);
             Log.e("未编辑还是用原来的图片path", newFilePath);
         }
 
-        image_current ++;
-        detailImage();
+
         //System.out.println("newFilePath---->" + newFilePath);
         //File file = new File(newFilePath);
         //System.out.println("newFilePath size ---->" + (file.length() / 1024)+"KB");

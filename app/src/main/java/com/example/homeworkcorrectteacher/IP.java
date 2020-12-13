@@ -1,5 +1,5 @@
 package com.example.homeworkcorrectteacher;
 
 public class IP {
-    public static final String CONSTANT = "http://35.220.214.53:8080/HomeworkCorrect_server/";
+    public static final String CONSTANT = "http://10.7.90.254:8080/HomeworkCorrect_server/";
 }

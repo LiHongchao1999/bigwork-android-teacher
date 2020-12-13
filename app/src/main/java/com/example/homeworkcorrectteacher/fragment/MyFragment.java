@@ -1,5 +1,6 @@
 package com.example.homeworkcorrectteacher.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,7 +8,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.example.homeworkcorrectteacher.CorrectingHomeworkActivity;
+import com.example.homeworkcorrectteacher.FinishedHomeworkActivity;
 import com.example.homeworkcorrectteacher.R;
 
 /**
@@ -61,6 +65,23 @@ public class MyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my, container, false);
+        View view = inflater.inflate(R.layout.fragment_my, container, false);
+        LinearLayout linearLayout = view.findViewById(R.id.ll_doing);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), CorrectingHomeworkActivity.class);
+                startActivity(intent);
+            }
+        });
+        LinearLayout linearLayout1 = view.findViewById(R.id.finished_liner);
+        linearLayout1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), FinishedHomeworkActivity.class);
+                startActivity(intent);
+            }
+        });
+        return view;
     }
 }

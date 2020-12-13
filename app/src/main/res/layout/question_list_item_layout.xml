@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/background_circle_submit"
+    android:padding="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/time"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="17sp"
+            android:textColor="#000000"
+            android:layout_height="wrap_content"
+            android:text="作业发布时间："/>
+        <TextView
+            android:id="@+id/question_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2020年12月30日 08:05"
+            android:textSize="17sp"
+            android:layout_marginLeft="3dp"/>
+    </LinearLayout>
+
+    <com.example.homeworkcorrectteacher.RoundRectLayout
+        android:layout_marginTop="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+        <ImageView
+            android:id="@+id/question_img_first"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/homework1"
+            android:background="@drawable/button_style_normal"/>
+    </com.example.homeworkcorrectteacher.RoundRectLayout>
+    <Button
+        android:id="@+id/continuebtn"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="right"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:textColor="@color/blue"
+        android:text="继续批改"
+        android:background="@drawable/button_shape"
+        android:textSize="15sp"/>
+</LinearLayout>

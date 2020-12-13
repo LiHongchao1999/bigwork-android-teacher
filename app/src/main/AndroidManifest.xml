@@ -23,8 +23,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CorrectHomeworkActivity"></activity>
-        <activity android:name=".LastCorrectActivity"></activity>
+        <activity android:name=".FinishedHomeworkDetailActivity"></activity>
+        <activity android:name=".FinishedHomeworkActivity" />
+        <activity android:name=".CorrectingHomeworkDetailActivity" />
+        <activity android:name=".CorrectingHomeworkActivity" />
+        <activity android:name=".CorrectHomeworkActivity" />
+        <activity android:name=".LastCorrectActivity" />
         <activity android:name=".HomeworkCorrectActivity" />
         <activity android:name=".MyWallet" />
         <activity android:name=".MainActivity">
@@ -36,11 +40,11 @@
         </activity> <!-- 选择相册图片Activity -->
         <activity
             android:name="com.xinlan.imageeditlibrary.picchooser.SelectPictureActivity"
-            android:screenOrientation="portrait"></activity> <!-- 图片编辑Activity -->
+            android:screenOrientation="portrait" /> <!-- 图片编辑Activity -->
         <activity
             android:name="com.xinlan.imageeditlibrary.editimage.EditImageActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

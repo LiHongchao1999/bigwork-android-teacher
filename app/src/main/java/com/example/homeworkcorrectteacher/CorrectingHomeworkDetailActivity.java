@@ -38,8 +38,8 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
     private Button submitBtn;
     private List<String> ordinaryImages;
     private List<String> correctedImages;
-    private ListView beforeCorrectedListView;
-    private ListView afterCorrectedListView;
+    private MyListView beforeCorrectedListView;
+    private MyListView afterCorrectedListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,10 +50,24 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
         ImageAdapter imageAdapter = new ImageAdapter(this,ordinaryImages,R.layout.show_image_item_layout);
         beforeCorrectedListView = findViewById(R.id.before);
         beforeCorrectedListView.setAdapter(imageAdapter);
+        beforeCorrectedListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                new ShowImagesDialog(CorrectingHomeworkDetailActivity.this,ordinaryImages,i).show();
+            }
+        });
+
         correctedImages = homework.getResult_image();
         ImageAdapter imageAdapter1 = new ImageAdapter(this,correctedImages,R.layout.show_image_item_layout);
         afterCorrectedListView = findViewById(R.id.after);
         afterCorrectedListView.setAdapter(imageAdapter1);
+        afterCorrectedListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                new ShowImagesDialog(CorrectingHomeworkDetailActivity.this,correctedImages,i).show();
+            }
+        });
+
         backBtn = findViewById(R.id.back);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +139,7 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
             }else {
                 Toast.makeText(this,"您没有选择图片",Toast.LENGTH_LONG).show();
             }
+            Log.e("123213",selfSend.toString());
         }
     }
     private void removeItem() {
@@ -134,5 +149,10 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
             }
         }
     }
+    public void correctedHomework(Homework homework){
+        Homework correctedHomework = homework;
+        correctedHomework.setResult_image(correctedImages);
 
+        Request request = new Request.Builder().url(IP.CONSTANT).build();
+    }
 }

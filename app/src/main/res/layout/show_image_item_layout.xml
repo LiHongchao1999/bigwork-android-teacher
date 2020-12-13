@@ -6,6 +6,7 @@
     <ImageView
         android:layout_gravity="center"
         android:id="@+id/img_homework111"
+        android:layout_margin="5dp"
         android:layout_width="112dp"
         android:layout_height="112dp"
         android:scaleType="centerCrop" />

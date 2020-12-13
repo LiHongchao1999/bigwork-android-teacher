@@ -45,7 +45,7 @@ public class CorrectingHomeworkActivity extends AppCompatActivity {
         getAllCorrectingHomeworkOfTeacher();
     }
     public void getAllCorrectingHomeworkOfTeacher(){
-        Request request = new Request.Builder().url(IP.CONSTANT+"?tag=correcting").build();
+        Request request = new Request.Builder().url(IP.CONSTANT+"GetIsCorrectingHomeworkServlet?tag=isCorrecting&teacherId=1").build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override

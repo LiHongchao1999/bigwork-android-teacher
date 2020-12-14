@@ -24,13 +24,42 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".FinishedHomeworkDetailActivity"></activity>
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent101920560" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".FinishedHomeworkActivity" />
+        <activity android:name=".SelfInformationActivity"/>
         <activity android:name=".CorrectingHomeworkDetailActivity" />
         <activity android:name=".CorrectingHomeworkActivity" />
         <activity android:name=".CorrectHomeworkActivity" />
         <activity android:name=".LastCorrectActivity" />
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".PhoneNumberActivity"/>
+        <activity android:name=".IdentityNumberActivity"/>
+        <activity android:name=".LoginWithPasswordActivity"/>
+        <activity android:name=".NickNameActivity"/>
+        <activity android:name=".RealNameActivity"/>
+        <activity android:name=".FreDetailActivity"/>
+        <activity android:name=".SexActivity"/>
+        <activity android:name=".ChangePasswordActivity"/>
         <activity android:name=".HomeworkCorrectActivity" />
         <activity android:name=".MyWallet" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         changeTeb(rewardFragment);
         currentFragment = rewardFragment;
         mainImg.setImageResource(R.drawable.moneyr);
-        mainText.setTextColor(Color.rgb(255,48,48));
+        mainText.setTextColor(Color.rgb(79,193,233));
     }
     private void getViews() {
         mainImg = findViewById(R.id.main_img);
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.main://主页
                 changeTeb(rewardFragment);
                 mainImg.setImageResource(R.drawable.moneyr);
-                mainText.setTextColor(Color.rgb(255,48,48));
+                mainText.setTextColor(Color.rgb(79,193,233));
                 messageImg.setImageResource(R.drawable.messageb);
                 messageText.setTextColor(Color.BLACK);
                 mineImg.setImageResource(R.drawable.myinfob);
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 mainImg.setImageResource(R.drawable.moneyb);
                 mainText.setTextColor(Color.BLACK);
                 messageImg.setImageResource(R.drawable.messager);
-                messageText.setTextColor(Color.rgb(255,48,48));
+                messageText.setTextColor(Color.rgb(79,193,233));
                 mineImg.setImageResource(R.drawable.myinfob);
                 mineText.setTextColor(Color.BLACK);
                 break;
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 messageImg.setImageResource(R.drawable.messageb);
                 messageText.setTextColor(Color.BLACK);
                 mineImg.setImageResource(R.drawable.myinfor);
-                mineText.setTextColor(Color.rgb(255,48,48));
+                mineText.setTextColor(Color.rgb(79,193,233));
                 break;
         }
     }

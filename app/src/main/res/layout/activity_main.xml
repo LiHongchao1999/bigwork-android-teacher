@@ -5,6 +5,7 @@
     <LinearLayout
         android:layout_alignParentBottom="true"
         android:id="@+id/tabs"
+        android:paddingTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

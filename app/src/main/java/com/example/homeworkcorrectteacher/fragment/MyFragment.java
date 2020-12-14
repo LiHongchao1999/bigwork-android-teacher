@@ -9,10 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
+import com.example.homeworkcorrectteacher.ContactUsActivity;
 import com.example.homeworkcorrectteacher.CorrectingHomeworkActivity;
 import com.example.homeworkcorrectteacher.FinishedHomeworkActivity;
+import com.example.homeworkcorrectteacher.MyWallet;
 import com.example.homeworkcorrectteacher.R;
+import com.example.homeworkcorrectteacher.SettingActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,6 +83,33 @@ public class MyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), FinishedHomeworkActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        RelativeLayout myWallet = view.findViewById(R.id.mywallet);
+        myWallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MyWallet.class);
+                startActivity(intent);
+            }
+        });
+
+        RelativeLayout contactUs = view.findViewById(R.id.contactUs);
+        contactUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ContactUsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        RelativeLayout setting  = view.findViewById(R.id.setting_relative);
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SettingActivity.class);
                 startActivity(intent);
             }
         });

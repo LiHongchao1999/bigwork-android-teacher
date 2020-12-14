@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -42,6 +43,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -74,6 +77,7 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
     private MyListView beforeCorrectedListView;
     private MyListView afterCorrectedListView;
     private Homework homework;
+    private EditText resultText;
     private int image_size;//图片z总张数
     private int image_current = 1;//当前是第几张
     private int z;//循环次数
@@ -91,7 +95,7 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_correcting_homework_detail);
         Intent intent = getIntent();
-        homework = (Homework) intent.getSerializableExtra("correctingHomework");
+        homework = (Homework)intent.getSerializableExtra("correctingHomework");
         ordinaryImages = homework.getHomework_image();
         image_size = homework.getHomework_image().size();
         ImageAdapter imageAdapter = new ImageAdapter(this, ordinaryImages, R.layout.show_image_item_layout);
@@ -164,13 +168,14 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InfoDialog infoDialog = new InfoDialog.Builder(CorrectingHomeworkDetailActivity.this, R.layout.info_dialog_green)
+                correctedHomework();
+                InfoDialog infoDialog = new InfoDialog.Builder(CorrectingHomeworkDetailActivity.this,R.layout.info_dialog_green)
                         .setTitle("Done")
                         .setMessage("提交成功")
                         .setButton("OK", new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        Intent intent = new Intent(CorrectingHomeworkDetailActivity.this, MainActivity.class);
+                                        Intent intent = new Intent(CorrectingHomeworkDetailActivity.this,MainActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(intent);
                                         finish();
@@ -183,49 +188,47 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
         });
         selfSend = new ArrayList<>();
         selfSend.add(IMG_ADD);//添加
-        selfResult = new CustomImgListAdapter(this, selfSend, R.layout.img_list_item);
+        selfResult = new CustomImgListAdapter(this,selfSend,R.layout.img_list_item);
         gridView1.setAdapter(selfResult);
         gridView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (selfSend.get(position).equals("add")) {//进行选择
+                if(selfSend.get(position).equals("add")){//进行选择
                     PictureSelector.create(CorrectingHomeworkDetailActivity.this,
                             PictureSelector.SELECT_REQUEST_CODE)
                             .selectPicture(true);
-                } else {
+                }else{
                     List<String> urls = new ArrayList<String>();
-                    for (int j = 0; j < selfSend.size() - 1; j++) {
+                    for(int j=0;j<selfSend.size()-1;j++){
                         urls.add(selfSend.get(j));
                     }
-                    new ShowLocalImageDialog(CorrectingHomeworkDetailActivity.this, urls, position).show();
+                    new ShowLocalImageDialog(CorrectingHomeworkDetailActivity.this,urls,position).show();
                 }
             }
         });
     }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PictureSelector.SELECT_REQUEST_CODE) {
-            if (data != null) {
+        if (requestCode== PictureSelector.SELECT_REQUEST_CODE){
+            if (data!=null){
                 PictureBean pictureBean = data.getParcelableExtra(PictureSelector.PICTURE_RESULT);
                 removeItem();
-                if (pictureBean.isCut()) {
+                if(pictureBean.isCut()){
                     selfSend.add(pictureBean.getPath());
-                    Log.e("路径", pictureBean.getPath());
+                    Log.e("路径",pictureBean.getPath());
                     selfSend.add(IMG_ADD);
                     selfResult.notifyDataSetChanged();
-                } else {
-                    String path = ImageTool.getRealPathFromUri(this, pictureBean.getUri());
-                    Log.e("路径1", pictureBean.getPath());
+                }else {
+                    String path = ImageTool.getRealPathFromUri(this,pictureBean.getUri());
+                    Log.e("路径1",pictureBean.getPath());
                     selfSend.add(IMG_ADD);
                     selfResult.notifyDataSetChanged();
                 }
-            } else {
-                Toast.makeText(this, "您没有选择图片", Toast.LENGTH_LONG).show();
+            }else {
+                Toast.makeText(this,"您没有选择图片",Toast.LENGTH_LONG).show();
             }
-            Log.e("123213", selfSend.toString());
+            Log.e("123213",selfSend.toString());
         }
 
         if (resultCode == RESULT_OK) {
@@ -237,7 +240,6 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
             }// end switch
         }
     }
-
     private void removeItem() {
         if (selfSend.size() != 9) {
             if (selfSend.size() != 0) {
@@ -245,13 +247,45 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
             }
         }
     }
-
-    public void correctedHomework(Homework homework) {
-        Homework correctedHomework = homework;
-        correctedHomework.setResult_image(correctedImages);
-
-        Request request = new Request.Builder().url(IP.CONSTANT).build();
+    public void correctedHomework(){
+        homework.setResult_text(resultText.getText().toString());
+        selfSend.remove(selfSend.size()-1);
+        for(int i=0;i<selfSend.size();i++){
+            uploadImagesOfHomeworkOfTeacher(i);
+            try {
+                Thread.sleep(1);//主线程休眠1ms，防止图片重名
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
+
+    private void uploadImagesOfHomeworkOfTeacher(final int i) {
+        long time = Calendar.getInstance().getTimeInMillis();
+        Log.e("获取到的时间",time+"");
+        RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),new File(selfSend.get(0)));
+        Log.e("list的内容",selfSend.get(0)+"");
+        Request request = new Request.Builder().post(body).url(IP.CONSTANT+"UploadHomeworkImageServlet?imgName="+time+".jpg").build();
+        selfSend.remove(0);
+        selfSend.add(time+".jpg");
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                if(i==selfSend.size()-1){
+                    homework.setResult_image_teacher(selfSend);
+                    UpdateWorkInfo(2);
+                }
+            }
+        });
+    }
+
 
     public void detailImage(int current) {
         if (p ==1){
@@ -402,7 +436,7 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
             //图片上传完成
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                UpdateWorkInfo();
+                UpdateWorkInfo(1);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -424,9 +458,9 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
     }
 
 
-    private void UpdateWorkInfo() {
+    private void UpdateWorkInfo(int i) {
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=UTF-8"), new Gson().toJson(homework));
-        Request request = new Request.Builder().post(requestBody).url(IP.CONSTANT + "UpdateWorkInfoServlet?tag=1").build();
+        Request request = new Request.Builder().post(requestBody).url(IP.CONSTANT + "UpdateWorkInfoServlet?tag="+i).build();
         //3、创建Call对象，发送请求，并且接受响应数据
         final Call call = okHttpClient.newCall(request);
         //不需要手动创建多线程

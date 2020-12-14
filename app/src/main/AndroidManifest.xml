@@ -23,6 +23,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".SettingActivity"/>
+        <activity android:name=".ContactUsActivity"/>
         <activity android:name=".FinishedHomeworkDetailActivity"></activity>
         <activity android:name=".FinishedHomeworkActivity" />
         <activity android:name=".CorrectingHomeworkDetailActivity" />

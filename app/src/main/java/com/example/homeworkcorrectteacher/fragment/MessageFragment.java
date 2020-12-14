@@ -10,13 +10,8 @@ import android.view.ViewGroup;
 
 import com.example.homeworkcorrectteacher.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MessageFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class MessageFragment extends Fragment {
-
+public class MessageFragment extends Fragment{
+    private View view;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -60,7 +55,8 @@ public class MessageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_message, container, false);
+        view = inflater.inflate(R.layout.fragment_message,container,false);
+
+        return view;
     }
 }

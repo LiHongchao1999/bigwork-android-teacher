@@ -18,7 +18,7 @@ public class Homework implements Serializable {
     private double money;//佣金
     private int grade;//作业评分
     private String scored;//判断是否评分
-    private String chatId;
+    private String chatId;//聊天id
 
     public String getChatId() {
         return chatId;

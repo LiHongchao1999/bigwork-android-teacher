@@ -20,15 +20,13 @@ import com.example.homeworkcorrectteacher.fragment.RewardFragment;
 public class MainActivity extends AppCompatActivity {
     private Fragment currentFragment = new Fragment(); //当前fragment
     private RewardFragment rewardFragment; //悬赏页面
-    private MessageFragment messageFragment; //消息页面
+    /*private MessageFragment messageFragment; //消息页面*/
     private MyFragment myFragment; //个人页面
-    
     private ImageView mainImg;
-    private ImageView messageImg;
+    /*private ImageView messageImg;*/
     private ImageView mineImg;
-    
     private TextView mainText;
-    private TextView messageText;
+    /*private TextView messageText;*/
     private TextView mineText;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         getViews();
         //获取fragment对象
         rewardFragment = new RewardFragment();
-        messageFragment = new MessageFragment();
+        /*messageFragment = new MessageFragment();*/
         myFragment = new MyFragment();
         //设置当前页
         changeTeb(rewardFragment);
@@ -49,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private void getViews() {
         mainImg = findViewById(R.id.main_img);
         mainText = findViewById(R.id.main_text);
-        messageImg = findViewById(R.id.message_img);
-        messageText = findViewById(R.id.message_text);
+        /*messageImg = findViewById(R.id.message_img);
+        messageText = findViewById(R.id.message_text);*/
         mineImg = findViewById(R.id.mine_img);
         mineText = findViewById(R.id.mine_text);
     }
@@ -76,13 +74,13 @@ public class MainActivity extends AppCompatActivity {
             case R.id.main://主页
                 changeTeb(rewardFragment);
                 mainImg.setImageResource(R.drawable.moneyr);
+                //messageImg.setImageResource(R.drawable.messageb);
+                //messageText.setTextColor(Color.BLACK);
                 mainText.setTextColor(Color.rgb(79,193,233));
-                messageImg.setImageResource(R.drawable.messageb);
-                messageText.setTextColor(Color.BLACK);
                 mineImg.setImageResource(R.drawable.myinfob);
                 mineText.setTextColor(Color.BLACK);
                 break;
-            case R.id.shop: //商城
+            /*case R.id.shop: //商城
                 changeTeb(messageFragment);
                 mainImg.setImageResource(R.drawable.moneyb);
                 mainText.setTextColor(Color.BLACK);
@@ -90,13 +88,13 @@ public class MainActivity extends AppCompatActivity {
                 messageText.setTextColor(Color.rgb(79,193,233));
                 mineImg.setImageResource(R.drawable.myinfob);
                 mineText.setTextColor(Color.BLACK);
-                break;
+                break;*/
             case R.id.mine: //我的
                 changeTeb(myFragment);
                 mainImg.setImageResource(R.drawable.moneyb);
                 mainText.setTextColor(Color.BLACK);
-                messageImg.setImageResource(R.drawable.messageb);
-                messageText.setTextColor(Color.BLACK);
+               /* messageImg.setImageResource(R.drawable.messageb);
+                messageText.setTextColor(Color.BLACK);*/
                 mineImg.setImageResource(R.drawable.myinfor);
                 mineText.setTextColor(Color.rgb(79,193,233));
                 break;

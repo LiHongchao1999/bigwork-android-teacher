@@ -1,6 +1,7 @@
 package com.example.homeworkcorrectteacher.fragment;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.example.homeworkcorrectteacher.ConversationListActivity;
 import com.example.homeworkcorrectteacher.IP;
 import com.example.homeworkcorrectteacher.MyViewPager;
 import com.example.homeworkcorrectteacher.R;
@@ -46,6 +48,7 @@ public class RewardFragment extends Fragment implements View.OnClickListener {
     private ImageView background;
     private MyViewPager viewPager;
     private ArrayList<View> pageview;
+    private ImageView conversation;//消息列表
     private TextView englishText;
     private TextView mathText;
     // 滚动条图片
@@ -74,7 +77,8 @@ public class RewardFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_reward, container, false);
         viewPager = view.findViewById(R.id.viewpager);
         okHttpClient = new OkHttpClient();
-
+        conversation = view.findViewById(R.id.iv_ring);
+        conversation.setOnClickListener(this);
         //查找布局文件用LayoutInflater.inflate
         english = inflater.inflate(R.layout.view_english, null);
         math = inflater.inflate(R.layout.view_math, null);
@@ -83,6 +87,7 @@ public class RewardFragment extends Fragment implements View.OnClickListener {
         scrollbar = view.findViewById(R.id.scroll);
         englishText.setOnClickListener(this);
         mathText.setOnClickListener(this);
+
         pageview =new ArrayList<View>();
         //添加想要切换的界面
         pageview.add(math);
@@ -204,6 +209,11 @@ public class RewardFragment extends Fragment implements View.OnClickListener {
                 gvHomework.setHorizontalSpacing(15);
                 gvHomework.setVerticalSpacing(15);
                 getHomeworkOfSpecificSubject("english");
+                break;
+            case R.id.iv_ring://消息
+                //跳转到会话列表页面
+                Intent intent = new Intent(getContext(), ConversationListActivity.class);
+                startActivity(intent);
                 break;
         }
     }

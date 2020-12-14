@@ -1,7 +1,8 @@
 package com.example.homeworkcorrectteacher.cache;
 
-import com.example.homeworkcorrectteacher.entity.User;
+import com.example.homeworkcorrectteacher.entity.Teacher;
 
 public class UserCache {
-    public static User user;
+    public static Teacher user;
+
 }

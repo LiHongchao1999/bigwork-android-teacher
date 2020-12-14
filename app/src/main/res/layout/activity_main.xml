@@ -30,7 +30,7 @@
                 android:text="悬赏"
                 android:layout_gravity="center_horizontal"/>
         </LinearLayout>
-        <LinearLayout
+        <!--<LinearLayout
             android:id="@+id/shop"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -51,7 +51,7 @@
                 android:gravity="center_horizontal"
                 android:text="消息"
                 android:layout_gravity="center_horizontal"/>
-        </LinearLayout>
+        </LinearLayout>-->
         <LinearLayout
             android:id="@+id/mine"
             android:layout_width="0dp"

@@ -305,7 +305,9 @@ public class EditImageActivity extends BaseActivity {
         }// end switch
 
         if (canAutoExit()) {
-            onSaveTaskDone();
+            //onSaveTaskDone();
+            Log.e("dianjile退出","未进行保存");
+            finish();
         } else {//图片还未被保存    弹出提示框确认
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setMessage(R.string.exit_without_save)
@@ -333,6 +335,10 @@ public class EditImageActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
             switch (mode) {
+                case MODE_NONE:
+                    Log.e("点击了返回键","null");
+                    finish();
+                    break;
                 case MODE_STICKERS:
                     mStickerFragment.applyStickers();// 保存贴图
                     break;

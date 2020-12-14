@@ -25,23 +25,35 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.homeworkcorrectteacher.entity.Homework;
+import com.google.gson.Gson;
 import com.xinlan.imageeditlibrary.editimage.EditImageActivity;
 import com.xinlan.imageeditlibrary.editimage.utils.BitmapUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class CorrectHomeworkActivity extends AppCompatActivity {
     private Homework homework;
     private List<String> homework_image;//作业图片
-    private List<String> result_image;//结果图片
+    private List<String> result_image = new ArrayList<>();//结果图片
     private int image_size;//图片总张数
     private int image_current = 1;//当前是第几张
     private String newFilePath;
-
+    private OkHttpClient okHttpClient = new OkHttpClient();
     private ImageView imgView;
     private String url = "";
     private Button editImage;//
@@ -81,6 +93,9 @@ public class CorrectHomeworkActivity extends AppCompatActivity {
         if (image_current > image_size) {
             Toast.makeText(this, "作业批改完成",
                     Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(CorrectHomeworkActivity.this,LastCorrectActivity.class);
+            intent.putExtra("homework",homework);
+            startActivity(intent);
             return;
         } else {
             url = IP.CONSTANT + "images/" + homework_image.get(image_current - 1);
@@ -190,12 +205,14 @@ public class CorrectHomeworkActivity extends AppCompatActivity {
         if (isImageEdit) {
             //Toast.makeText(this, getString(R.string.save_path, newFilePath), Toast.LENGTH_LONG).show();
             Log.e("保存的路径newFilePath", newFilePath);
-            image_current ++;
-            detailImage();
         } else {//未编辑  还是用原来的图片
             newFilePath = data.getStringExtra(EditImageActivity.FILE_PATH);
             Log.e("未编辑还是用原来的图片path", newFilePath);
         }
+        uploadImagesOfHomework();
+        image_current ++;
+        detailImage();
+
 
 
         //System.out.println("newFilePath---->" + newFilePath);
@@ -241,6 +258,53 @@ public class CorrectHomeworkActivity extends AppCompatActivity {
             //imgView.setImageBitmap(mainBitmap);
         }
     }// end inner class
+
+    //上传批改后的作业图片
+    private void uploadImagesOfHomework() {
+        long time = Calendar.getInstance().getTimeInMillis();
+        Log.e("获取到的时间",time+"");
+        RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),new File(newFilePath));
+        Log.e("list的内容",newFilePath);
+        Request request = new Request.Builder().post(body).url(IP.CONSTANT+"UploadHomeworkResultImageServlet?imgName="+time+".jpg").build();
+        result_image.add(time+".jpg");
+        homework.setResult_image(result_image);
+
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            //图片上传完成
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                UpdateWorkInfo();
+            }
+        });
+    }
+
+
+    private void UpdateWorkInfo() {
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=UTF-8"),new Gson().toJson(homework));
+        Request request = new Request.Builder().post(requestBody).url(IP.CONSTANT+"UpdateWorkInfoServlet?tag=1").build();
+        //3、创建Call对象，发送请求，并且接受响应数据
+        final Call call = okHttpClient.newCall(request);
+        //不需要手动创建多线程
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                //请求失败时回调的方法
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                //请求成功时回调的方法
+                Log.e("异步请求的结果",response.body().string());
+            }
+        });
+    }
 
 
 }

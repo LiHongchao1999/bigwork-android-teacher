@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.homeworkcorrectteacher.adapter.CustomImgListAdapter;
+import com.example.homeworkcorrectteacher.entity.Homework;
 import com.wildma.pictureselector.PictureBean;
 import com.wildma.pictureselector.PictureSelector;
 
@@ -27,6 +28,7 @@ public class LastCorrectActivity extends AppCompatActivity {
     private CustomImgListAdapter selfResult;
     private List<String> selfSend;//自己上传的
     private static final String IMG_ADD= "add"; //添加图片
+    private Homework homework;
     private EditText editText;//学生注释
     private OkHttpClient okHttpClient;
     private Button submitBtn;
@@ -36,6 +38,10 @@ public class LastCorrectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_last_correct);
         gridView1 = findViewById(R.id.result_image_gv);
         submitBtn = findViewById(R.id.submit);
+        //接受传递过来的homework对象
+        Intent intent = getIntent();
+        homework = (Homework) intent.getSerializableExtra("homework");
+
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

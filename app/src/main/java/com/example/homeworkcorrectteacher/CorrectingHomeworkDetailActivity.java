@@ -94,6 +94,7 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_correcting_homework_detail);
+        resultText = findViewById(R.id.correct_self_text);
         Intent intent = getIntent();
         homework = (Homework)intent.getSerializableExtra("correctingHomework");
         ordinaryImages = homework.getHomework_image();

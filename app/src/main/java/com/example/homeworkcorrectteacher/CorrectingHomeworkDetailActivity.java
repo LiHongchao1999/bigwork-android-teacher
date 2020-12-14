@@ -43,12 +43,13 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
     private MyListView numberListView;
     private MyListView beforeCorrectedListView;
     private MyListView afterCorrectedListView;
+    private Homework homework;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_correcting_homework_detail);
         Intent intent = getIntent();
-        Homework homework = (Homework)intent.getSerializableExtra("correctingHomework");
+        homework = (Homework)intent.getSerializableExtra("correctingHomework");
         ordinaryImages = homework.getHomework_image();
         ImageAdapter imageAdapter = new ImageAdapter(this,ordinaryImages,R.layout.show_image_item_layout);
 

@@ -31,6 +31,7 @@
         <activity android:name=".LastCorrectActivity" />
         <activity android:name=".HomeworkCorrectActivity" />
         <activity android:name=".MyWallet" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

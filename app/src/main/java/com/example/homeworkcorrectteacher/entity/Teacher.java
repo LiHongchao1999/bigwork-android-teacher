@@ -3,6 +3,7 @@ package com.example.homeworkcorrectteacher.entity;
 public class Teacher {
     private int teacherId;
     private String nickname;//用户昵称
+    private String sex;//性别
     private String image;
     private String pNumber;//教师手机号
     private String password;//教师密码
@@ -78,6 +79,13 @@ public class Teacher {
     }
     public void setWeNumber(String weNumber) {
         this.weNumber = weNumber;
+    }
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public Teacher(int teacherId, String nickname, String image, String pNumber, String password, String fSchool,

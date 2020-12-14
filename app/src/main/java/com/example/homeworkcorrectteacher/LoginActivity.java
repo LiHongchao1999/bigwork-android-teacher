@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.homeworkcorrectteacher.cache.IP;
 import com.example.homeworkcorrectteacher.cache.UserCache;
+import com.example.homeworkcorrectteacher.entity.Teacher;
 import com.example.homeworkcorrectteacher.entity.User;
 import com.example.homeworkcorrectteacher.fragment.MyFragment;
 import com.google.gson.Gson;
@@ -90,8 +91,8 @@ public class LoginActivity extends AppCompatActivity {
 //                    break;
                 case 2://手机号验证码登录
                     String str1 = msg.obj.toString();
-                    User user = new Gson().fromJson(str1,User.class);
-                    if(user.getId()==0){//表示登录失败
+                    Teacher user = new Gson().fromJson(str1,Teacher.class);
+                    if(user.getTeacherId()==0){//表示登录失败
                         Toast.makeText(LoginActivity.this,"账号或验证码错误",Toast.LENGTH_LONG).show();
                     }else{
                         UserCache.user = user;
@@ -121,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                             public void onSuccess(String userId) {
                                 Log.e("onSuccess",userId+"xcy");
                                 //设置当前用户信息
-                                io.rong.imlib.model.UserInfo userInfo = new io.rong.imlib.model.UserInfo(userId,UserCache.user.getNickname(), Uri.parse(IP.CONSTANT+"userImage/"+UserCache.user.getImage()));
+                                io.rong.imlib.model.UserInfo userInfo = new io.rong.imlib.model.UserInfo(userId,UserCache.user.getNickname(), Uri.parse(IP.CONSTANT+"teacherImage/"+UserCache.user.getImage()));
                                 RongIM.getInstance().setCurrentUserInfo(userInfo);
                             }
                             /**

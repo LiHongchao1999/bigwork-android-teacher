@@ -17,7 +17,9 @@ import android.widget.Toast;
 
 import com.example.homeworkcorrectteacher.cache.IP;
 import com.example.homeworkcorrectteacher.cache.UserCache;
+import com.example.homeworkcorrectteacher.entity.Teacher;
 import com.example.homeworkcorrectteacher.entity.User;
+import com.example.homeworkcorrectteacher.fragment.MyFragment;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -48,8 +50,8 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
             switch (msg.what){
                 case 1:
                     String str = msg.obj.toString();
-                    User user = new Gson().fromJson(str,User.class);
-                    if(user.getId()==0){//表示登录失败
+                    Teacher user = new Gson().fromJson(str,Teacher.class);
+                    if(user.getTeacherId()==0){//表示登录失败
                         Toast.makeText(LoginWithPasswordActivity.this,"账号或密码错误",Toast.LENGTH_LONG).show();
                     }else{
                         UserCache.user = user;
@@ -79,7 +81,7 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
                             public void onSuccess(String userId) {
                                 Log.e("onSuccess",userId+"xcy");
                                 //设置当前用户信息
-                                io.rong.imlib.model.UserInfo userInfo = new io.rong.imlib.model.UserInfo(userId,UserCache.user.getNickname(), Uri.parse(IP.CONSTANT+"userImage/"+UserCache.user.getImage()));
+                                io.rong.imlib.model.UserInfo userInfo = new io.rong.imlib.model.UserInfo(userId,UserCache.user.getNickname(), Uri.parse(IP.CONSTANT+"teacherImage/"+UserCache.user.getImage()));
                                 RongIM.getInstance().setCurrentUserInfo(userInfo);
                             }
                             /**
@@ -92,7 +94,7 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
                             }
                         });
                         //跳转到个人页面
-                        Intent intent = new Intent(LoginWithPasswordActivity.this,MainActivity.class);
+                        Intent intent = new Intent(LoginWithPasswordActivity.this, MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.putExtra("mine",1+"");
                         startActivity(intent);
@@ -149,14 +151,14 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
     public void postLogin() throws JSONException {
         //2.创建Request请求对象
         //请求体是字符串
-        User user = new User();
-        user.setPhoneNumber(etphone.getText().toString());
+        Teacher user = new Teacher();
+        user.setpNumber(etphone.getText().toString());
         user.setPassword(etpassword.getText().toString());
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),new Gson().toJson(user));
         //3.创建Call对象
         Request request = new Request.Builder()
                 .post(requestBody)//请求方式为POST
-                .url(IP.CONSTANT+"UserLoginServlet")
+                .url(IP.CONSTANT+"TeacherLoginServlet")
                 .build();
         final Call call = okHttpClient.newCall(request);
         //4.提交请求并返回响应

@@ -105,7 +105,7 @@ public class SelfInformationActivity extends AppCompatActivity {
         getViews();
         //给控件赋值
         Glide.with(this).load(IP.CONSTANT+"userImage/"+UserCache.user.getImage()).into(headImg);
-        if(UserCache.user.getNickname()==null || UserCache.user.getSex().equals("")){
+        if(UserCache.user.getNickname()==null || UserCache.user.getNickname().equals("")){
             nickName.setText("");
         }else{
             nickName.setText(UserCache.user.getNickname()+"");
@@ -115,10 +115,10 @@ public class SelfInformationActivity extends AppCompatActivity {
         }else{
             sex.setText(UserCache.user.getSex()+"");
         }
-        if(UserCache.user.getPhoneNumber()==null || UserCache.user.getSex().equals("")){
+        if(UserCache.user.getpNumber()==null || UserCache.user.getSex().equals("")){
             phone.setText("");
         }else{
-            phone.setText(UserCache.user.getPhoneNumber()+"");
+            phone.setText(UserCache.user.getpNumber()+"");
         }
         if(UserCache.user.getPassword()==null || UserCache.user.getSex().equals("")){
             password.setText("");
@@ -273,7 +273,7 @@ public class SelfInformationActivity extends AppCompatActivity {
             }
         }else if(requestCode==1&&resultCode==6){//修改手机号
             String phone1 = data.getStringExtra("phonenum");
-            UserCache.user.setPhoneNumber(phone1);
+            UserCache.user.setpNumber(phone1);
             phone.setText(phone1);
         }else if(requestCode==1&&resultCode==10){//修改密码
             String password1 = data.getStringExtra("pw");

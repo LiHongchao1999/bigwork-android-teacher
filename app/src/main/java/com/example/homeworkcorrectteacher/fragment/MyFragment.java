@@ -182,7 +182,7 @@ public class MyFragment extends Fragment {
             login.setText("");
             login.setVisibility(View.INVISIBLE);
             Glide.with(getContext())
-                    .load(IP.CONSTANT+"userImage/"+ UserCache.user.getImage())
+                    .load(IP.CONSTANT+"teacherImage/"+ UserCache.user.getImage())
                     .into(img);
         }
     }

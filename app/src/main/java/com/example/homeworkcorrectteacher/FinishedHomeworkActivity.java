@@ -43,10 +43,10 @@ public class FinishedHomeworkActivity extends AppCompatActivity {
             }
         });
         context=this;
-        getAllCorrectingHomeworkOfTeacher();
+        getAllCorrectedHomeworkOfTeacher();
     }
-    public void getAllCorrectingHomeworkOfTeacher(){
-        Request request = new Request.Builder().url(IP.CONSTANT+"GetHomeworkListServlet?tag=waitCorrect&homeworkType=math").build();
+    public void getAllCorrectedHomeworkOfTeacher(){
+        Request request = new Request.Builder().url(IP.CONSTANT+"GetIsCorrectingHomeworkServlet?tag=hasCorrected&teacherId=1").build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -57,7 +57,6 @@ public class FinishedHomeworkActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String homeworkListJson = response.body().string();
-                Log.e("@!3",homeworkListJson);
                 ArrayList<Homework> homeworkList = new Gson().fromJson(homeworkListJson,new TypeToken<ArrayList<Homework>>(){}.getType());
                 homeworkAdapter = new FinishedHomeworkAdapter(context,homeworkList, R.layout.finished_homework_item);
                 runOnUiThread(new Runnable() {

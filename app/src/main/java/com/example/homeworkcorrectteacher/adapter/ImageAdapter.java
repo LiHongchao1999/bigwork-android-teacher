@@ -69,10 +69,14 @@ public class ImageAdapter extends BaseAdapter {
         anim.setInterpolator(new LinearInterpolator());
         anim.setRepeatCount(ObjectAnimator.INFINITE);
         anim.start();
-        Glide.with(context).load(IP.CONSTANT+"images/"+dataSource.get(position))
-                .placeholder(R.drawable.rotate_loading)
-                .error(R.drawable.fail)
-                .into(viewHolder.imgHomework);
+        if(dataSource.get(position)!=null){
+            Glide.with(context).load(IP.CONSTANT+"images/"+dataSource.get(position))
+                    .placeholder(R.drawable.rotate_loading)
+                    .error(R.drawable.fail)
+                    .into(viewHolder.imgHomework);
+        }else{
+            viewHolder.imgHomework.setImageDrawable(context.getResources().getDrawable(R.drawable.wait));
+        }
         return convertView;
     }
     private class ViewHolder{

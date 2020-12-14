@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.homeworkcorrectteacher.adapter.CustomImgListAdapter;
 import com.example.homeworkcorrectteacher.adapter.ImageAdapter;
+import com.example.homeworkcorrectteacher.adapter.NumberAdapter;
 import com.example.homeworkcorrectteacher.entity.Homework;
 import com.wildma.pictureselector.PictureBean;
 import com.wildma.pictureselector.PictureSelector;
@@ -38,6 +40,7 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
     private Button submitBtn;
     private List<String> ordinaryImages;
     private List<String> correctedImages;
+    private MyListView numberListView;
     private MyListView beforeCorrectedListView;
     private MyListView afterCorrectedListView;
     @Override
@@ -48,6 +51,14 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
         Homework homework = (Homework)intent.getSerializableExtra("correctingHomework");
         ordinaryImages = homework.getHomework_image();
         ImageAdapter imageAdapter = new ImageAdapter(this,ordinaryImages,R.layout.show_image_item_layout);
+
+        numberListView = findViewById(R.id.number);
+        List<Integer> integers = new ArrayList<>();
+        for(int i=1;i<=ordinaryImages.size();i++){integers.add(i);}
+        NumberAdapter adapter = new NumberAdapter(this,integers,R.layout.nums_item);
+        numberListView.setAdapter(adapter);
+
+
         beforeCorrectedListView = findViewById(R.id.before);
         beforeCorrectedListView.setAdapter(imageAdapter);
         beforeCorrectedListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,13 +69,23 @@ public class CorrectingHomeworkDetailActivity extends AppCompatActivity {
         });
 
         correctedImages = homework.getResult_image();
-        ImageAdapter imageAdapter1 = new ImageAdapter(this,correctedImages,R.layout.show_image_item_layout);
+        List<String> imgs = new ArrayList<>();
+        for(int i=0;i<ordinaryImages.size();i++){
+            if(i<correctedImages.size()){
+                imgs.add(correctedImages.get(i));
+            }else{
+                imgs.add(null);
+            }
+        }
+        ImageAdapter imageAdapter1 = new ImageAdapter(this,imgs,R.layout.show_image_item_layout);
         afterCorrectedListView = findViewById(R.id.after);
         afterCorrectedListView.setAdapter(imageAdapter1);
         afterCorrectedListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                new ShowImagesDialog(CorrectingHomeworkDetailActivity.this,correctedImages,i).show();
+                if(i<correctedImages.size()){
+                    new ShowImagesDialog(CorrectingHomeworkDetailActivity.this,correctedImages,i).show();
+                }
             }
         });
 

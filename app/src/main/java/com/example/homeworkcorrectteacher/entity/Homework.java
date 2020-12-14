@@ -18,6 +18,15 @@ public class Homework implements Serializable {
     private double money;//佣金
     private int grade;//作业评分
     private String scored;//判断是否评分
+    private String chatId;
+
+    public String getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
+    }
 
     public int getId() {
         return id;
@@ -161,6 +170,7 @@ public class Homework implements Serializable {
                 ", money=" + money +
                 ", grade=" + grade +
                 ", scored='" + scored + '\'' +
+                ", chatId='" + chatId + '\'' +
                 '}';
     }
 }

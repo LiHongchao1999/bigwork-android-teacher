@@ -81,7 +81,6 @@ public class HomeworkAdapter extends BaseAdapter {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Log.e("!2",date.toString()+"");
         long current = System.currentTimeMillis();
         long minutes = (date.getTime()-current)/60000;
         int day = (int)minutes/60/24;

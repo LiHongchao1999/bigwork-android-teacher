@@ -220,7 +220,6 @@ public class RewardFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String homeworkListJson = response.body().string();
-                Log.e("@!3",homeworkListJson);
                 ArrayList<Homework> homeworkList = new Gson().fromJson(homeworkListJson,new TypeToken<ArrayList<Homework>>(){}.getType());
                 homeworkAdapter = new HomeworkAdapter(getContext(),homeworkList, R.layout.homework_list_item);
                 getActivity().runOnUiThread(new Runnable() {

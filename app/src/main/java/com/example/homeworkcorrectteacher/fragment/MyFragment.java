@@ -12,15 +12,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.homeworkcorrectteacher.ContactUsActivity;
 import com.bumptech.glide.Glide;
 import com.example.homeworkcorrectteacher.CircleImageView;
 import com.example.homeworkcorrectteacher.CorrectingHomeworkActivity;
 import com.example.homeworkcorrectteacher.FinishedHomeworkActivity;
+import com.example.homeworkcorrectteacher.MyWallet;
 import com.example.homeworkcorrectteacher.LoginActivity;
 import com.example.homeworkcorrectteacher.R;
+import com.example.homeworkcorrectteacher.SettingActivity;
 import com.example.homeworkcorrectteacher.SelfInformationActivity;
 import com.example.homeworkcorrectteacher.cache.IP;
 import com.example.homeworkcorrectteacher.cache.UserCache;
@@ -31,6 +35,7 @@ import com.example.homeworkcorrectteacher.cache.UserCache;
  * create an instance of this fragment.
  */
 public class MyFragment extends Fragment {
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -120,6 +125,33 @@ public class MyFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), FinishedHomeworkActivity.class);
                 startActivityForResult(intent,10);
+            }
+        });
+
+        RelativeLayout myWallet = view.findViewById(R.id.mywallet);
+        myWallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MyWallet.class);
+                startActivity(intent);
+            }
+        });
+
+        RelativeLayout contactUs = view.findViewById(R.id.contactUs);
+        contactUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ContactUsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        RelativeLayout setting  = view.findViewById(R.id.setting_relative);
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SettingActivity.class);
+                startActivity(intent);
             }
         });
 

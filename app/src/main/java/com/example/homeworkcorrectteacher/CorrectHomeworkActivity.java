@@ -93,6 +93,9 @@ public class CorrectHomeworkActivity extends AppCompatActivity {
         if (image_current > image_size) {
             Toast.makeText(this, "作业批改完成",
                     Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(CorrectHomeworkActivity.this,LastCorrectActivity.class);
+            intent.putExtra("homework",homework);
+            startActivity(intent);
             return;
         } else {
             url = IP.CONSTANT + "images/" + homework_image.get(image_current - 1);

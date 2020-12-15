@@ -43,7 +43,7 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
     private EditText etpassword; //密码
     private OkHttpClient okHttpClient;
     private TextView tvnickname;
-    private Button login;//登录
+    private TextView login;//登录
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -57,6 +57,7 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
                         UserCache.user = user;
                         //获取数据库连接
                         String token = UserCache.user.getChat_token();
+                        Log.e("token",token);
                         RongIMClient.connect(token, new RongIMClient.ConnectCallbackEx() {
                             /**
                              * 数据库回调

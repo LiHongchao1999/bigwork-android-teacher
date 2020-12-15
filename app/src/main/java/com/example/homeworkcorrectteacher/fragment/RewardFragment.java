@@ -1,36 +1,29 @@
 package com.example.homeworkcorrectteacher.fragment;
 
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
 
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.Adapter;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.homeworkcorrectteacher.ConversationListActivity;
-import com.example.homeworkcorrectteacher.IP;
 import com.example.homeworkcorrectteacher.MyViewPager;
 import com.example.homeworkcorrectteacher.R;
 import com.example.homeworkcorrectteacher.ScrollableGridView;
 import com.example.homeworkcorrectteacher.adapter.HomeworkAdapter;
+import com.example.homeworkcorrectteacher.cache.IP;
 import com.example.homeworkcorrectteacher.entity.Homework;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -38,6 +31,8 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -51,6 +46,7 @@ public class RewardFragment extends Fragment implements View.OnClickListener {
     private ImageView conversation;//消息列表
     private TextView englishText;
     private TextView mathText;
+    private TextView mUnreadNumView;//消息个数
     // 滚动条图片
     private ImageView scrollbar;
     // 滚动条初始偏移量
@@ -75,6 +71,7 @@ public class RewardFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_reward, container, false);
+        mUnreadNumView = view.findViewById(R.id.num_msg);
         viewPager = view.findViewById(R.id.viewpager);
         okHttpClient = new OkHttpClient();
         conversation = view.findViewById(R.id.iv_ring);
@@ -87,7 +84,9 @@ public class RewardFragment extends Fragment implements View.OnClickListener {
         scrollbar = view.findViewById(R.id.scroll);
         englishText.setOnClickListener(this);
         mathText.setOnClickListener(this);
-
+        //初始化融云
+        initRongMessage();
+        mUnreadNumView.setVisibility(View.INVISIBLE);
         pageview =new ArrayList<View>();
         //添加想要切换的界面
         pageview.add(math);
@@ -128,7 +127,6 @@ public class RewardFragment extends Fragment implements View.OnClickListener {
         gvHomework.setVerticalSpacing(25);
         getHomeworkOfSpecificSubject("math");
         //添加切换界面的监听器
-
         viewPager.addOnPageChangeListener(new MyOnPageChangeListener());
         // 获取滚动条的宽度
         //bmpW = BitmapFactory.decodeResource(getResources(), R.drawable.scrollbar).getWidth();
@@ -148,6 +146,39 @@ public class RewardFragment extends Fragment implements View.OnClickListener {
         scrollbar.setImageMatrix(matrix);
         return view;
     }
+    /*
+     * 融云消息接收，及初始化
+     */
+    private void initRongMessage() {
+        final Conversation.ConversationType[] conversationTypes = {Conversation.ConversationType.PRIVATE, Conversation.ConversationType.DISCUSSION,
+                Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
+                Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE};
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                RongIM.getInstance().setOnReceiveUnreadCountChangedListener(mCountListener, conversationTypes);
+            }
+        }, 500);
+    }
+    /*
+     * 设置接收到未读消息的数量
+     * */
+    public RongIM.OnReceiveUnreadCountChangedListener mCountListener = new RongIM.OnReceiveUnreadCountChangedListener() {
+        @Override
+        public void onMessageIncreased(int count) {
+            if (count == 0) {
+                mUnreadNumView.setVisibility(View.INVISIBLE);
+            } else if (count > 0 && count < 100) {
+                mUnreadNumView.setVisibility(View.VISIBLE);
+                mUnreadNumView.setText(count + "");
+            } else {
+                mUnreadNumView.setVisibility(View.VISIBLE);
+                mUnreadNumView.setText(R.string.no_read_message);
+            }
+        }
+    };
     public class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
         @Override
@@ -226,7 +257,6 @@ public class RewardFragment extends Fragment implements View.OnClickListener {
                 //请求失败时回调的方法
                 e.printStackTrace();
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String homeworkListJson = response.body().string();

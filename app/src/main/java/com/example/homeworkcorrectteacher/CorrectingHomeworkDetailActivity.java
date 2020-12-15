@@ -32,6 +32,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.example.homeworkcorrectteacher.adapter.CustomImgListAdapter;
 import com.example.homeworkcorrectteacher.adapter.ImageAdapter;
 import com.example.homeworkcorrectteacher.adapter.NumberAdapter;
+import com.example.homeworkcorrectteacher.cache.IP;
 import com.example.homeworkcorrectteacher.entity.Homework;
 import com.google.gson.Gson;
 import com.wildma.pictureselector.PictureBean;

@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.homeworkcorrectteacher.CorrectingHomeworkDetailActivity;
-import com.example.homeworkcorrectteacher.IP;
 import com.example.homeworkcorrectteacher.R;
+import com.example.homeworkcorrectteacher.cache.IP;
 import com.example.homeworkcorrectteacher.entity.Homework;
 
 import java.util.List;

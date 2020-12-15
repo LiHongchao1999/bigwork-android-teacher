@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.homeworkcorrectteacher.adapter.ImageAdapter;
+import com.example.homeworkcorrectteacher.cache.IP;
 import com.example.homeworkcorrectteacher.entity.Homework;
 import com.google.gson.Gson;
 
@@ -24,6 +25,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 
+import io.rong.imlib.IRongCallback;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.message.TextMessage;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -57,6 +63,29 @@ public class HomeworkCorrectActivity extends AppCompatActivity {
 //                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                        startActivity(intent);
 //                        finish();
+                        //给用户发送“我已接单”消息
+                        String content="我已接单,您的作业正在批改中，请耐心等待....";
+                        Conversation.ConversationType type = Conversation.ConversationType.PRIVATE;
+                        //构建消息
+                        TextMessage message = TextMessage.obtain(content);
+                        Message message1 = Message.obtain(homework.getChatId(),type,message);
+                        //发送消息
+                        RongIMClient.getInstance().sendMessage(message1, null, null, new IRongCallback.ISendMessageCallback() {
+                            @Override
+                            public void onAttached(Message message) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(Message message) {
+                                Log.e("onSuccess","消息发送成功");
+                            }
+
+                            @Override
+                            public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                                Log.e("onError","消息发送失败");
+                            }
+                        });
                         UpdateHomeworkTag();
                         WhetherStartMarking();
                     }

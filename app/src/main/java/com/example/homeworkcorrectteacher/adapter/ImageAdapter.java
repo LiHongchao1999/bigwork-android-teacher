@@ -2,28 +2,20 @@ package com.example.homeworkcorrectteacher.adapter;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.content.Intent;
-import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.homeworkcorrectteacher.HomeworkCorrectActivity;
-import com.example.homeworkcorrectteacher.IP;
 import com.example.homeworkcorrectteacher.R;
-import com.example.homeworkcorrectteacher.entity.Homework;
+import com.example.homeworkcorrectteacher.cache.IP;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.OkHttpClient;
 
 public class ImageAdapter extends BaseAdapter {
     private Context context;
@@ -63,7 +55,7 @@ public class ImageAdapter extends BaseAdapter {
         }else {
             viewHolder =(ViewHolder) convertView.getTag();
         }
-        Log.e("123",IP.CONSTANT+"images/"+dataSource.get(position));
+        Log.e("123", IP.CONSTANT+"images/"+dataSource.get(position));
         final ObjectAnimator anim = ObjectAnimator.ofInt(viewHolder.imgHomework, "ImageLevel", 0,10000);
         anim.setDuration(3000);
         anim.setInterpolator(new LinearInterpolator());

@@ -101,7 +101,7 @@ public class MyFragment extends Fragment {
         nickName = view.findViewById(R.id.user_name);
         lever = view.findViewById(R.id.user_lever);
         img = view.findViewById(R.id.image_user);
-
+        //点击用户头像
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +111,7 @@ public class MyFragment extends Fragment {
                 }
             }
         });
-
+        //点击批改中
         LinearLayout linearLayout = view.findViewById(R.id.ll_doing);
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +120,7 @@ public class MyFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        //点击已完成
         LinearLayout linearLayout1 = view.findViewById(R.id.finished_liner);
         linearLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +129,7 @@ public class MyFragment extends Fragment {
                 startActivityForResult(intent,10);
             }
         });
-
+        //我的钱包
         RelativeLayout myWallet = view.findViewById(R.id.mywallet);
         myWallet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,7 +138,7 @@ public class MyFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
+        //联系我们
         RelativeLayout contactUs = view.findViewById(R.id.contactUs);
         contactUs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,7 +147,7 @@ public class MyFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
+        //设置
         RelativeLayout setting  = view.findViewById(R.id.setting_relative);
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,7 +166,7 @@ public class MyFragment extends Fragment {
             login.setVisibility(View.INVISIBLE);
             Log.e("用户头像",UserCache.user.getImage()+"");
             Glide.with(getContext())
-                    .load(IP.CONSTANT+"userImage/"+ UserCache.user.getImage())
+                    .load(IP.CONSTANT+"teacherImage/"+ UserCache.user.getImage())
                     .into(img);
         }
         return view;
@@ -209,10 +210,10 @@ public class MyFragment extends Fragment {
             login.setText("");
             login.setVisibility(View.INVISIBLE);
             Glide.with(getContext())
-                    .load(IP.CONSTANT+"userImage/"+ UserCache.user.getImage())
+                    .load(IP.CONSTANT+"teacherImage/"+ UserCache.user.getImage())
                     .into(img);
         }
-        if (requestCode==100 && resultCode==200){
+        if (requestCode==100 && resultCode==200){//手机号加密码登录
             String phone = data.getStringExtra("phone");
             lever.setVisibility(View.VISIBLE);
             nickName.setVisibility(View.VISIBLE);
@@ -232,7 +233,7 @@ public class MyFragment extends Fragment {
             Glide.with(getContext())
                     .load(IP.CONSTANT+"userImage/"+UserCache.user.getImage());
         }
-        if(requestCode==66&&resultCode==666){
+        if(requestCode==66&&resultCode==666){//注销登陆返回
             img.setImageBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.initial));
             login.setVisibility(View.VISIBLE);
             login.setText("点击登录");

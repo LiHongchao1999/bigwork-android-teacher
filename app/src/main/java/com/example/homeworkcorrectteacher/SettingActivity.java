@@ -8,6 +8,8 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.homeworkcorrectteacher.cache.UserCache;
+
 public class SettingActivity extends AppCompatActivity {
     
     @Override
@@ -25,7 +27,7 @@ public class SettingActivity extends AppCompatActivity {
         logoffButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //UserCache.user = null;
+                UserCache.user = null;
                 Intent intent = new Intent();
                 setResult(666,intent);
                 finish();

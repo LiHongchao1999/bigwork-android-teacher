@@ -147,16 +147,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        EditText editText=findViewById(R.id.et_phone);
-
+        //获取控件
+        getViews();
         //1.创建OkHttpClient对象
         okHttpClient = new OkHttpClient();
 
-        /*//获取用户的ip
-        userIp = getIPAddress();
-        Log.e("ip",userIp);*/
-        //获取控件
-        getViews();
         btCode.setText("获取验证码");
 //        调用mob开发者服务
         MobSDK.submitPolicyGrantResult(true, null);
